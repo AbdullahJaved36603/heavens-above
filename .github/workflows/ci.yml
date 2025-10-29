@@ -8,6 +8,9 @@ on:
 
 jobs:
   build-test:
+    # ✅ This ensures CI also runs on Dependabot PRs
+    if: github.actor == 'dependabot[bot]' || github.event_name != 'pull_request'
+
     runs-on: ubuntu-latest
 
     steps:
