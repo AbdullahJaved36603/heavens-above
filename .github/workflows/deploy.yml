@@ -29,7 +29,7 @@ jobs:
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: "HeavensAbove"
+          application_name: heavens-above
           environment_name: "heavens-above-env"
           region: "eu-north-1"
           version_label: ${{ github.run_number }}
