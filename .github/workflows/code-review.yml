@@ -1,0 +1,65 @@
+name: Code Review Checks
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      # ---- Run Lint ----
+      - name: Run ESLint
+        id: eslint
+        run: |
+          npx eslint . > eslint-report.txt || true
+
+      # ---- Run Prettier ----
+      - name: Run Prettier Check
+        id: prettier
+        run: |
+          npx prettier --check . > prettier-report.txt || true
+
+      # ---- Run Security Scan ----
+      - name: Run Security Audit
+        id: audit
+        run: |
+          npx audit-ci --moderate > audit-report.txt || true
+
+      # ---- Post Comment on Pull Request ----
+      - name: Comment Results on Pull Request
+        if: always()
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: code-review
+          message: |
+            🧠 **Automated Code Review Results**
+            ---
+            **ESLint Report:**
+            ```
+            ${{ steps.eslint.outputs.stdout || 'See eslint-report.txt for details.' }}
+            ```
+
+            **Prettier Report:**
+            ```
+            ${{ steps.prettier.outputs.stdout || 'See prettier-report.txt for details.' }}
+            ```
+
+            **Security Audit:**
+            ```
+            ${{ steps.audit.outputs.stdout || 'See audit-report.txt for details.' }}
+            ```
+
+            ✅ *End of automated report.*

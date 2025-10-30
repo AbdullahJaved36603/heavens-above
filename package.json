@@ -28,5 +28,10 @@
   "homepage": "https://github.com/PKUPI/heavens-above#readme",
   "engines": {
     "node": ">=12.10.0"
+  },
+  "devDependencies": {
+    "audit-ci": "^7.1.0",
+    "eslint": "^9.38.0",
+    "prettier": "^3.6.2"
   }
 }
