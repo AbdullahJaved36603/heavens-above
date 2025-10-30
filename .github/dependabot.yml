@@ -1,15 +1,11 @@
 version: 2
 updates:
-  # Update npm dependencies in the root project
   - package-ecosystem: "npm"
-    directory: "/" # root of your repo
+    directory: "/"
     schedule:
-      interval: "weekly" # checks every week
-      day: "monday"
-      time: "06:00"
-      timezone: "Asia/Karachi"
-    commit-message:
-      prefix: "chore(deps)"
+      interval: "daily"
     open-pull-requests-limit: 5
+    commit-message:
+      prefix: "⬆️ deps"
     reviewers:
-      - your-github-username # (optional — replace this with your GitHub handle)
+      - AbdullahJaved36603
